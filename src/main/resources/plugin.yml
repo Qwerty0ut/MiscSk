@@ -1,6 +1,0 @@
-name: MiscSk
-version: '${project.version}'
-main: me.qwerty.miscsk.MiscSk
-api-version: 1.17
-depend: [ Skript, ItemsAdder, MMOCore ]
-authors: [ Qwerty ]
