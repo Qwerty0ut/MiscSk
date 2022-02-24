@@ -62,6 +62,21 @@ place i[tems]a[dder] block %string% at %location%
 place ia block "ruby_ore" at location(0, 25, 0)
 ```
 
+Dar experiencia a un Jugador, mostrando un Holograma.
+
+```vbscript
+give %number% (amount of|quantity of) mmo[core] exp[erience] to %player% with hologram at %location%
+give %number% (amount of|quantity of) mmo[core] exp[erience] for profess[ion] %string% (of|from) %player% with hologram at %location%
+
+'Ejemplo:
+give 1 amount of mmo exp to player with hologram at location at block in front player
+
+'Ejemplo Profesion:
+on ia block interact of "itemsadder:ruby_block":
+	message "Has minado 1 ruby! Has ganado 2 de experiencia" to player
+	give 2 amount of mmo exp for profession "mining" from player with hologram at event-location
+```
+
 ### Expresiones
 
 Obtener/Agregar/Remover/Modificar el valor de un HUD de un jugador.
