@@ -80,16 +80,24 @@ set player's hud "magiccraft:mana_bar" quantity to 5
 Obtener/Agregar/Remover/Modificar la experiencia (MMOCore) de un jugador.
 
 ```vbscript
-[the] MMO[Core] exp[erience] of %player% [with hologram at %-location%]
-[the] %player%'s MMO[Core] exp[erience] [with hologram at %-location%]
+[the] MMO[Core] exp[erience] of %player%
+[the] %player%'s MMO[Core] exp[erience]
+
+%player%'s profess[ion] %string% mmo[core] exp[erience]
 
 'Ejemplos:
 set {_xp} to player's mmo exp
-add 1 to player's mmo exp with hologram at location at player
 add 5 to player's mmo exp
 remove 3 from player's mmo exp
 reset player's mmo exp
 set player's mmo exp to 10
+    
+'Ejemplos con Profesiones:
+set {_xp} to player's profession "mining" mmocore experience
+add 1 to player's profession "fishing" mmocore experience
+remove 5 from player's profession "mining" mmocore experience
+reset player's profession "mining" mmocore experience
+set player's profession "fishing" mmocore experience to 5
 ```
 
 Obtener/Agregar/Remover/Modificar el nivel (MMOCore) de un jugador.
@@ -98,12 +106,21 @@ Obtener/Agregar/Remover/Modificar el nivel (MMOCore) de un jugador.
 [the] MMO[Core] (lvl|level) of %player%
 [the] %player%'s MMO[Core] (lvl|level)
 
+%player%'s profess[ion] %string% mmo[core] level
+
 'Ejemplos:
 set {_nivel} to mmo lvl of player
 add 1 to player's mmo lvl
 remove 2 from player's mmo lvl
 reset player's mmo level
 set mmo level of player to 25
+
+'Ejemplos con Profesiones:
+set {_nivel} to player's profession "alchemy" mmocore level
+add 5 to player's profession "mining" mmocore level
+remove 1 from player's profession "fishing" mmocore level
+reset player's profession "mining" mmocore level
+set player's profession "mining" mmocore level to 5
 ```
 
 Obtener/Agregar/Remover/Modificar el Stellium (MMOCore) de un jugador.
@@ -153,8 +170,14 @@ Obtener la experiencia necesaria para subir de nivel de un jugador.
 ```vbscript
 MMO[Core] exp[erience] [needed] to level up [of|from] %player%
 
+MMO[Core] exp[erience] [needed] to level up in profess[ion] %string% (of|from) %player%
+%player%'s exp[erience] [needed] to (level|lvl) up in profess[ion] %string%
+
 'Ejemplo
 set {_expRequerida} to mmo exp needed to level up from player
+
+'Ejemplo con Profesiones
+set {_expRequeridaMineria} to mmo experience needed to level up in profession "mining"
 ```
 
 ### Eventos
@@ -233,3 +256,63 @@ Valores de Evento
 | event-location | Obtienes la locacion envuelta en el evento                   |
 |   event-item   | Obtienes el item que dropea el bloque                        |
 
+
+
+Detectar cuando un jugador entra o sale de combate:
+
+```vbscript
+[mmocore] player enter combat
+[mmocore] player leave combat
+
+'Ejemplos
+on player enter combat:
+	message "Has entrado en combate!" to player
+
+on player leave combat:
+	message "Ya no estas en combate!" to player
+```
+
+Valores de Evento
+
+| Valor          | Descripcion                               |
+| -------------- | ----------------------------------------- |
+| [event-]player | Obtienes al jugador envuelto en el evento |
+
+
+
+Detectar cuando un jugador gana experiencia de MMOCore
+
+```vbscript
+mmo[core] player xp gain
+
+'Ejemplo
+on mmocore player xp gain:
+	message "Has ganado %event-number% de experiencia!" to player
+```
+
+Valores de evento
+
+| Valor              | Descripcion                   |
+| ------------------ | ----------------------------- |
+| [event-]player     | Jugador envuelto en el evento |
+| [event-]experience | Cantidad de experiencia       |
+
+
+
+Detectar cuando un jugador sube de nivel en MMOCore
+
+```vbscript
+mmo[core] player (level|lvl) up
+
+'Ejemplo
+on mmocore player lvl up:
+	message "Has subido del nivel %past event-number% al nivel %event-number%" to player
+```
+
+Valores de evento
+
+| Valor               | Descripcion                   |
+| ------------------- | ----------------------------- |
+| [event-]player      | Jugador envuelto en el evento |
+| past [event-]number | Nivel anterior a la subida    |
+| [event-]number      | Nivel despues de la subida    |
